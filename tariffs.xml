@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tariffs xmlns="http://www.example.com/students">
+    <tariff name="SMART" operator_name="MTS">
+        <payroll>250</payroll>
+        <call_prices>
+            <inside_network>0</inside_network>
+            <outside_network>1.5</outside_network>
+            <fixed_phone>1</fixed_phone>
+        </call_prices>
+        <sms_price>0</sms_price>
+        <parameters>
+            <favorite_number>74623246651</favorite_number>
+            <tariffication>per-minute</tariffication>
+            <connection_fee>0</connection_fee>
+        </parameters>
+    </tariff>
+    <tariff name="All Inclusive" operator_name="Beeline">
+        <payroll>1000</payroll>
+        <call_prices>
+            <inside_network>0</inside_network>
+            <outside_network>0</outside_network>
+            <fixed_phone>0</fixed_phone>
+        </call_prices>
+        <sms_price>0</sms_price>
+        <parameters>
+            <favorite_number>74264561833</favorite_number>
+            <tariffication>per-minute</tariffication>
+            <connection_fee>300</connection_fee>
+        </parameters>
+    </tariff>
+    <tariff name="Include" operator_name="Megafon">
+        <payroll>650</payroll>
+        <call_prices>
+            <inside_network>0</inside_network>
+            <outside_network>2.5</outside_network>
+            <fixed_phone>0</fixed_phone>
+        </call_prices>
+        <sms_price>0</sms_price>
+        <parameters>
+            <favorite_number>842356643216</favorite_number>
+            <tariffication>12-second</tariffication>
+            <connection_fee>100</connection_fee>
+        </parameters>
+    </tariff>
+</tariffs>

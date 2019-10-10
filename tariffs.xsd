@@ -1,0 +1,36 @@
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://www.example.com/students" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="tariffs">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="tariff" maxOccurs="unbounded" minOccurs="0">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element type="xs:double" name="payroll"/>
+              <xs:element name="call_prices">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element type="xs:double" name="inside_network"/>
+                    <xs:element type="xs:double" name="outside_network"/>
+                    <xs:element type="xs:double" name="fixed_phone"/>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              <xs:element type="xs:double" name="sms_price"/>
+              <xs:element name="parameters">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element type="xs:long" name="favorite_number"/>
+                    <xs:element type="xs:string" name="tariffication"/>
+                    <xs:element type="xs:double" name="connection_fee"/>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+            <xs:attribute type="xs:string" name="name" use="optional"/>
+            <xs:attribute type="xs:string" name="operator_name" use="optional"/>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>
