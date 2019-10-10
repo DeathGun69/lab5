@@ -51,6 +51,36 @@ namespace git_lab5{
         {
             return XSDValidation;
         }
- 
+
+        public async System.Threading.Tasks.Task<Tariff> buildTarrifAsync()
+        {
+            Tariff tariff = new Tariff();
+            XmlReaderSettings settings = new XmlReaderSettings();
+            settings.Async = true;
+
+            Check_XML();
+            if (XSDValidation == true) 
+            {
+                try
+                {
+                    XmlDocument xDoc = new XmlDocument();
+                    xDoc.Load(xmlPath);
+                    XmlElement xRoot = xDoc.DocumentElement;
+                    foreach (XmlNode xnode in xRoot)
+                    {
+                        if(xnode.Attributes.Count>0)
+                        {
+                            XmlNode attr = xnode.Attributes.GetNamedItem("name");
+                            if (attr!=null)
+                                Console.WriteLine(attr.Value);
+                        }
+                    }
+                } catch (Exception e)
+                {
+                    Console.WriteLine(e.Message);
+                }
+            }
+            return tariff;
+        }
     }
 }

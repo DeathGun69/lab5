@@ -44,6 +44,29 @@ namespace git_lab5
         {
             this.payroll = payroll;
         }
-        
+        public CallPrices getCallPrices()
+        {
+            return call_Prices;
+        }
+        public void setCallPrices(CallPrices call)
+        {
+            this.call_Prices = call;
+        }
+        public double getSmsPrice()
+        {
+            return sms_price;
+        }
+        public void setSmsPrice(double sp)
+        {
+            this.sms_price = sp;
+        }
+        public Parameters getParameters()
+        {
+            return paremeters;
+        }
+        public void setParameters(Parameters param)
+        {
+            this.paremeters = param;
+        }
     }
 }
