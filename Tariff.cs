@@ -4,18 +4,25 @@ using System.Xml.Serialization;
 
 namespace git_lab5
 {
+    /*Класс Tariff, описывающий тариф, который записан в XML-файле */
     public class Tariff
     {
+        // название тарифа
         [XmlAttribute]
         string name;
+        // оператор
         [XmlAttribute]
         string operator_name;
+        // ежемесячная плата
         [XmlElement]
         double payroll;
+        // цены тарифа
         [XmlElement]
         CallPrices call_Prices = new CallPrices();
+        // цена за смс
         [XmlElement]
         double sms_price;
+        // параметры тарифа
         [XmlElement]
         Parameters paremeters = new Parameters();
         public Tariff() {   }
@@ -28,6 +35,7 @@ namespace git_lab5
             this.sms_price = smsprice;
             this.paremeters = parameters;
         }
+        // геттеры и сеттеры
         public string getName()
         {
             return name;

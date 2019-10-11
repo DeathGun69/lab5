@@ -7,14 +7,18 @@ namespace git_lab5
 {
     public class XMLReader
     {
+        // флаг валидации
         private bool XSDValidation;
+        // путь к XSD
         private string xsdPath;
+        // путь к XML
         private string xmlPath;
         public XMLReader(string xsdP, string xmlP)
         {
             this.xsdPath = xsdP;
             this.xmlPath = xmlP;
         }
+        /*Метод выводящий ошибки и предупреждения при валидации */
         private void booksSettingsValidationEventHandler(object sender, ValidationEventArgs e)
         {
             if (e.Severity == XmlSeverityType.Warning)
@@ -30,6 +34,7 @@ namespace git_lab5
 
             XSDValidation = false;
         }
+        /*Метод, который парсит Xml-файл */
         public List<Tariff> Read_XML()
         {
             List<Tariff> tariffs = new List<Tariff>();
@@ -48,6 +53,7 @@ namespace git_lab5
                     {   
                         if (tarr.HasAttributes)
                         {
+                            // получение атрибутов
                             while (tarr.MoveToNextAttribute())
                                 {
                                     if (tarr.Name == "name")
@@ -60,6 +66,7 @@ namespace git_lab5
                                     }
                                 }
                         }
+                        // получение значений элементов Xml-файла
                         switch (tarr.NodeType)
                         {
                             case XmlNodeType.Element:
@@ -107,10 +114,12 @@ namespace git_lab5
                                     break;
                                 }
                             break;
+                            // добавление в список законченного объекта
                             case XmlNodeType.EndElement:
                                 if(tarr.Name == "tariff")
                                 {
                                     tariffs.Add(tariff);
+                                    // "обнуление" переменных
                                     tariff = new Tariff();
                                     parameters = new Parameters();
                                     callPrices = new CallPrices();
@@ -123,6 +132,7 @@ namespace git_lab5
                     XSDValidation = false;
                 }
             }
+            // вернуть список тарифов
             return tariffs;
         }
     }

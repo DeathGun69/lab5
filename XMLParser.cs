@@ -5,14 +5,18 @@ using System.Xml.Schema;
 
 namespace git_lab5{
     public class XMLParser {
+        // флаг валидации
         private bool XSDValidation;
+        // путь к XSD
         private string xsdPath;
+        // путь к XML
         private string xmlPath;
         public XMLParser(string xsdP, string xmlP)
         {
             xsdPath = xsdP;
             xmlPath = xmlP;
         }
+        /*Метод выводящий ошибки и предупреждения при валидации */
         private void booksSettingsValidationEventHandler(object sender, ValidationEventArgs e)
         {
             if (e.Severity == XmlSeverityType.Warning)
@@ -28,7 +32,7 @@ namespace git_lab5{
 
             XSDValidation = false;
         }
-
+        /*Метод для валидации XML-файла по XSD-файлу */
         public bool Check_XML()
         {
             XSDValidation = true;
@@ -54,7 +58,7 @@ namespace git_lab5{
         {
             return XSDValidation;
         }
-
+        /*Метод возвращающий список тарифов */
         public List<Tariff> buildTarrifList()
         {
             List<Tariff> tariffList = new List<Tariff>();
@@ -78,7 +82,7 @@ namespace git_lab5{
             }
             return tariffList;
         }
-
+        /*Метод возвращающий тариф */
         private Tariff buildTarrif(XmlNode xmlNode)
         {
             Tariff tariff = new Tariff();
@@ -116,6 +120,7 @@ namespace git_lab5{
             }
             return tariff;
         }
+        /*Метод, возвращающий цены тарифа */
         private CallPrices buildCallPrices(XmlNode xmlN)
         {
             CallPrices callPrices = new CallPrices();
@@ -136,6 +141,7 @@ namespace git_lab5{
             }
             return callPrices;
         }
+        /*Метод, возвращающий параметры тарифа */
         private Parameters buildParameters (XmlNode xmlN)
         {
             Parameters parameters = new Parameters();

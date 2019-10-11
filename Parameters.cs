@@ -2,12 +2,16 @@ using System.Xml.Serialization;
 
 namespace git_lab5
 {
+    /*Класс Parameters, описывающий параметры тарифа. */
     public class Parameters 
     {
+        // любимый номер
         [XmlElement]
         private long favourite_number;
+        // тарификация
         [XmlText]
         private string tariffication;
+        // плата за подключение
         [XmlElement]
         private double connection_fee;
         public Parameters(){    }
@@ -17,6 +21,7 @@ namespace git_lab5
             this.tariffication = tariff;
             this.connection_fee = f_phone;
         }
+        // геттеры и сеттеры
         public long getFavouriteNumber()
         {
             return favourite_number;

@@ -7,14 +7,19 @@ namespace git_lab5
 {
     class Program
     {
+        // точка входа
         static void Main(string[] args)
         {
+            // объявление списков для заполнения
             List<Tariff> tariffs1 = new List<Tariff>();
             List<Tariff> tariffs2 = new List<Tariff>();
+            // пути к файлам
             string XSDPATH = @"C:\Users\Eugene\Desktop\KPO\lab5\git_lab5\tariffs.xsd";
             string XMLPATH = @"C:\Users\Eugene\Desktop\KPO\lab5\git_lab5\tariffs.xml"; 
+            // парсинг DOM
             XMLParser xmlParser = new XMLParser(XSDPATH, XMLPATH);
             tariffs1 = xmlParser.buildTarrifList();
+            // вывод полученных данных
             foreach (Tariff item in tariffs1)
             {
                 Console.WriteLine("----------------------------------");
@@ -30,8 +35,10 @@ namespace git_lab5
                 Console.WriteLine("Connection fee: " + item.getParameters().getConnection_Fee());
             }
             Console.WriteLine("---------------------------------");
+            // парсинг SAX
             XMLReader xMLReader = new XMLReader(XSDPATH, XMLPATH);
             tariffs2 = xMLReader.Read_XML();
+            // вывод полученных данных
             foreach (Tariff item in tariffs2)
             {
                 Console.WriteLine("----------------------------------");
