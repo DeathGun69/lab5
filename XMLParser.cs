@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Xml;
 using System.Xml.Schema;
 
@@ -40,9 +41,11 @@ namespace git_lab5{
             try {
                 while (tarr.Read())
                 {   }
+                tarr.Close();
             } catch (Exception) 
             {
                 XSDValidation = false;
+                tarr.Close();
             }
             return XSDValidation;
         }
@@ -52,11 +55,9 @@ namespace git_lab5{
             return XSDValidation;
         }
 
-        public async System.Threading.Tasks.Task<Tariff> buildTarrifAsync()
+        public List<Tariff> buildTarrifList()
         {
-            Tariff tariff = new Tariff();
-            XmlReaderSettings settings = new XmlReaderSettings();
-            settings.Async = true;
+            List<Tariff> tariffList = new List<Tariff>();
 
             Check_XML();
             if (XSDValidation == true) 
@@ -68,19 +69,92 @@ namespace git_lab5{
                     XmlElement xRoot = xDoc.DocumentElement;
                     foreach (XmlNode xnode in xRoot)
                     {
-                        if(xnode.Attributes.Count>0)
-                        {
-                            XmlNode attr = xnode.Attributes.GetNamedItem("name");
-                            if (attr!=null)
-                                Console.WriteLine(attr.Value);
-                        }
+                        tariffList.Add(buildTarrif(xnode));
                     }
                 } catch (Exception e)
                 {
                     Console.WriteLine(e.Message);
                 }
             }
+            return tariffList;
+        }
+
+        private Tariff buildTarrif(XmlNode xmlNode)
+        {
+            Tariff tariff = new Tariff();
+            if(xmlNode.Attributes.Count>0)
+            {
+                XmlNode attr = xmlNode.Attributes.GetNamedItem("name");
+                if (attr!=null)
+                {
+                    tariff.setName(attr.Value);
+                }
+                attr = xmlNode.Attributes.GetNamedItem("operator_name");
+                if (attr!=null)
+                {
+                    tariff.setOperatorName(attr.Value);
+                }
+                foreach (XmlNode childnode in xmlNode.ChildNodes)
+                {
+                    if(childnode.Name == "payroll")
+                    {
+                        tariff.setPayroll(Convert.ToDouble(childnode.InnerText));
+                    }
+                    if(childnode.Name == "call_prices")
+                    {
+                        tariff.setCallPrices(buildCallPrices(childnode));
+                    }
+                    if(childnode.Name == "sms_price")
+                    {
+                        tariff.setSmsPrice(Convert.ToDouble(childnode.InnerText));
+                    }
+                    if(childnode.Name == "parameters")
+                    {
+                        tariff.setParameters(buildParameters(childnode));
+                    }
+                }
+            }
             return tariff;
+        }
+        private CallPrices buildCallPrices(XmlNode xmlN)
+        {
+            CallPrices callPrices = new CallPrices();
+            foreach (XmlNode cnode in xmlN.ChildNodes)
+            {
+                if (cnode.Name == "inside_network")
+                {
+                    callPrices.setInsideNetwork(Convert.ToDouble(cnode.InnerText));
+                }
+                if (cnode.Name == "outside_network")
+                {
+                    callPrices.setOutsideNetwork(Convert.ToDouble(cnode.InnerText));
+                }
+                if (cnode.Name == "fixed_phone")
+                {
+                    callPrices.setFixed_Phone(Convert.ToDouble(cnode.InnerText));
+                }
+            }
+            return callPrices;
+        }
+        private Parameters buildParameters (XmlNode xmlN)
+        {
+            Parameters parameters = new Parameters();
+            foreach (XmlNode cnode in xmlN.ChildNodes)
+            {
+                if (cnode.Name == "favorite_number")
+                {
+                    parameters.setFavouriteNumber(Convert.ToInt64(cnode.InnerText));
+                }
+                if (cnode.Name == "tariffication")
+                {
+                    parameters.setTarifficaton(cnode.InnerText);
+                }
+                if (cnode.Name == "connection_fee")
+                {
+                    parameters.setConnection_Fee(Convert.ToDouble(cnode.InnerText));
+                }
+            }
+            return parameters;
         }
     }
 }

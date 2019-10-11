@@ -36,6 +36,14 @@ namespace git_lab5
         {
             this.name = name;
         }
+        public string getOperatorName()
+        {
+            return operator_name;
+        }
+        public void setOperatorName(string op_name)
+        {
+            this.operator_name = op_name;
+        } 
         public double getPayroll()
         {
             return payroll;
